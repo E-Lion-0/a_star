@@ -3,6 +3,8 @@
 //
 
 #include <iostream>
+#include "SFML/include/SFML/Graphics.hpp"
+
 
 int main(){
     std::cout<<"A-Star algorithm!"<<std::endl;
