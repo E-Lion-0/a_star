@@ -4,10 +4,17 @@ project(a_star)
 set(CMAKE_CXX_STANDARD 14)
 
 
-set(SOURCE_FILES main.cpp )
+#setting source
+set(SOURCE_FILES main.cpp header.h )
+set(EXECUTABLE_NAME "A-star")
+add_executable(a_star main.cpp)
 
 
-include_directories(SFML/include SFML/lib)
+find_package(SFML 2.5.1 COMPONENTS graphics audio REQUIRED)
 
-add_executable(a_star ${SOURCE_FILES})
-target_link_libraries(a_star sfml-system sfml-window sfml-graphics sfml-audio sfml-network)
+
+
+target_link_libraries(a_star sfml-graphics sfml-audio)
+
+
+
