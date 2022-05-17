@@ -4,26 +4,18 @@
 
 #include <iostream>
 #include "SFML/Graphics.hpp"
+#include "SFML/Window.hpp"
+#include "SFML/System.hpp"
+#include "Engine.h"
+
+#include <vector>
+
+
 
 
 int main(){
-    std::cout<<"A-Star algorithm!"<<std::endl;
-    sf::RenderWindow window(sf::VideoMode(300,300),"First Window");
-    sf::CircleShape shape(100.f);
-    shape.setFillColor(sf::Color::Green);
-
-    while (window.isOpen())
-    {
-        sf::Event event;
-        while (window.pollEvent(event))
-        {
-            if (event.type == sf::Event::Closed)
-                window.close();
-        }
-
-        window.clear();
-        window.draw(shape);
-        window.display();
-    }
+    Engine e;
+    e.run();
     return 0;
+
 }
