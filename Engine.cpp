@@ -5,7 +5,7 @@
 #include "Engine.h"
 
 Engine::Engine() {
-    resolution = Vector2i(2400,1200);
+    resolution = Vector2u(2400,1200);
     window.create(VideoMode(resolution.x,resolution.y),"A* algorithm!");
     window.setFramerateLimit(60);
     background = Grid(resolution.x/60,resolution.y/60);
@@ -18,10 +18,9 @@ void Engine::draw() {
 
 
     for(int  i = 0; i < background.getSize(); i++){
-        background.getCell(i).setColor(sf::Color::White);
-        std::cout<<i<<std::endl;
+        //background.getCell(i).setColor(sf::Color::White);
+        //std::cout<<i<<std::endl;
         window.draw(background.getCell(i).getShape());
-
     };
 
     window.display();
@@ -29,6 +28,9 @@ void Engine::draw() {
 void Engine::run() {
   while(window.isOpen()){
       //FIXME input();
+
+      background.inputMouse(window);
+
       //FIXME update();
       //FIXME
       sf::Event event;

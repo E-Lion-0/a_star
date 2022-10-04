@@ -8,20 +8,29 @@
 #include "Cell.h"
 #include <vector>
 #include "SFML/Graphics.hpp"
-
+#include "SFML/System.hpp"
+#include "SFML/Window.hpp"
 class Grid {
 private:
     std::vector<Cell> grid ;
     int height, width;
-public:
-    Grid(int h, int w);
+    std::vector<Cell> open;
+    std::vector<Cell> closed;
 
+public:
+    Grid(int w, int h);
+
+
+    void inputMouse(sf::RenderWindow &w);
+
+    void setColorCell(sf::Vector2f ,const sf::Color &c);
     Cell getCell(int  i){
         return this->grid[i];
     }
     int getSize(){
         return grid.size();
     }
+    Grid& operator[](sf::Vector2i i){};
 };
 
 

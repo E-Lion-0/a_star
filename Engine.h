@@ -12,7 +12,7 @@ using namespace sf;
 
 class Engine {
 private:
-    Vector2i resolution;
+    Vector2u resolution;
     RenderWindow window;
     Grid background = Grid(0, 0);
 public:

@@ -4,8 +4,11 @@
 
 #ifndef A_STAR_CELL_H
 #define A_STAR_CELL_H
-#include "SFML/Graphics.hpp"
+//#include "SFML/Graphics.hpp"
 #include <vector>
+#include <SFML/Graphics/Color.hpp>
+#include <SFML/System/Vector2.hpp>
+#include <SFML/Graphics/RectangleShape.hpp>
 
 
 class Cell {
