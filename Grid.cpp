@@ -3,48 +3,28 @@
 //
 
 #include <c++/v1/iostream>
+#include <unistd.h>
 #include "Grid.h"
 
 
-Grid::Grid(int w, int h) {
-    height = h;
-    width = w;
-    grid.reserve(w*h);
-    for (float i = 0; i < w; i++) {
-        for (float j = 0; j < h; j++) {
-            grid.push_back( Cell(i * 60, j * 60));
+Grid::Grid(Vector2i _dim){
+        dim = _dim;
+        m.reserve((dim.x/30)*(dim.y/30));
+        for (int i = 0; i < dim.y/30; i++) {
+            for (int j = 0; j < dim.x/30; j++) {
+                m.push_back( Node(j , i ));
+
+            }
         }
-    }
+};
 
-}
-//TODO
-
-
-
-
-void Grid::setColorCell(sf::Vector2f p, const sf::Color &c) {
-    int pos;
-    pos = p.x * p.y;
-    grid[pos].setColor(c);
-}
-
-void Grid::inputMouse(sf::RenderWindow &w) {
-    sf::Vector2i posM = sf::Mouse::getPosition(w);
-    posM.x /= 60;
-    posM.y /= 60;
-    if(posM.x>=0&&posM.y>=0&&posM.x<=width&&posM.y<=height) {  //FIXME width interchanged with height
+Node* Grid::getNodeByPos(sf::Vector2i p) {
+    if(p.x>=0&&p.y>=0&&p.x*30<=dim.x&&p.y*30<=dim.y){
+        return &m[p.x+(p.y*40)];
+    }else {
+        std::cout<<"Node not found"<<std::endl;
+        return  nullptr;
+    };
 
 
-        if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
-
-            std::cout << posM.x<< "," << posM.y << std::endl;
-            grid.at()
-            // grid[pos].setColor(sf::Color::Magenta);
-
-
-        }
-    }
-}
-
-
-
+};

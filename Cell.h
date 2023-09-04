@@ -50,6 +50,8 @@ public:
     bool isObstacle() const;
 
     void setObstacle(bool obstacle);
+
+    void changeColor();
 };
 
 #endif //A_STAR_CELL_H

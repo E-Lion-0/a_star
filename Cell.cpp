@@ -12,7 +12,8 @@ Cell::Cell(const float& x, const float& y) {
     finish = false;
     visited = false;
     shape.setSize({50,50});
-    shape.setFillColor(sf::Color::Blue);
+    color = sf::Color::Blue;
+    shape.setFillColor(color);
     shape.setOutlineThickness(10);
     shape.setOutlineColor(sf::Color::Black);
     shape.setPosition(x,y);
@@ -70,4 +71,18 @@ void Cell::setColor(const sf::Color &color) {
         Cell::color = color;
         shape.setFillColor(color);
     }
+}
+
+void Cell::changeColor() {
+    std::cout << "jj" << std::endl;
+    if (color == sf::Color::Blue) {
+
+        setColor(sf::Color::Green);
+
+    }else if(color == sf::Color::Green){
+        setColor(sf::Color::Red);
+    }else if(color == sf::Color::Red){
+        setColor(sf::Color::Blue);
+    }
+
 }

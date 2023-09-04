@@ -5,32 +5,46 @@
 #ifndef A_STAR_GRID_H
 #define A_STAR_GRID_H
 
-#include "Cell.h"
+#include "Node.h"
 #include <vector>
 #include "SFML/Graphics.hpp"
 #include "SFML/System.hpp"
 #include "SFML/Window.hpp"
+
+using namespace std;
+using namespace sf;
 class Grid {
 private:
-    std::vector<Cell> grid ;
-    int height, width;
-    std::vector<Cell> open;
-    std::vector<Cell> closed;
+    vector<Node> m ;
+    Vector2i dim;
 
 public:
-    Grid(int w, int h);
 
+     Grid(Vector2i _dim);
 
-    void inputMouse(sf::RenderWindow &w);
-
-    void setColorCell(sf::Vector2f ,const sf::Color &c);
-    Cell getCell(int  i){
-        return this->grid[i];
+    int altezza() const{
+        return dim.y;
+    };
+    int larghezza() const {
+        return dim.x;
+    };
+    vector<Node> getNodes() const{
+        return m;
     }
-    int getSize(){
-        return grid.size();
+
+    Node* getNodeByPos(sf::Vector2i p);
+    void drawPath(vector<Node*> path){
+        for(auto node : path){
+            if(node != path[0] && node != path[path.capacity()-1]){
+                this->getNodeByPos(node->getPos())->setColor(sf::Color::Magenta);
+
+            }
+        };
     }
-    Grid& operator[](sf::Vector2i i){};
+    Vector2i getDim(){
+        return dim;
+    }
+
 };
 
 
