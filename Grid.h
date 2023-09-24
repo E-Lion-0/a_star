@@ -41,6 +41,22 @@ public:
             }
         };
     }
+    void clearPath(vector<Node*> path){
+        for(auto node : path){
+            if(node != path[0] && node != path[path.capacity()-1]){
+                this->getNodeByPos(node->getPos())->setColor(sf::Color::Blue);
+
+            }
+        };
+    }
+
+    void clearObstacles(){
+        for (auto i : m){
+            if(i.is_obstacle()){
+                i.make_obstacle(false);
+            }
+        }
+    }
     Vector2i getDim(){
         return dim;
     }

@@ -69,7 +69,7 @@ public:
 
     void is_goal(){
         if(!obstacle){
-            shape.setFillColor((sf::Color::Red));
+            shape.setFillColor((sf::Color::White));
         };
     };
     void is_path(){
@@ -88,7 +88,13 @@ public:
         return obstacle;
     };
     void make_obstacle(bool f){
-        obstacle = f;
+        if(f){
+            this->setColor(sf::Color::Green);
+        }else{
+            this->setColor(sf::Color::Blue);
+        }
+        this->obstacle = f;
+
     }
 
 

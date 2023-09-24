@@ -14,7 +14,6 @@ using namespace std;
 
 void drawGrid(RenderWindow& window, const Grid& griglia){
     for( auto i : griglia.getNodes()){
-
         window.draw(i.getShape());
     };
 };
@@ -22,14 +21,14 @@ void drawGrid(RenderWindow& window, const Grid& griglia){
 
 vector<Node*> a_star(Node* start,Node* goal, Grid& griglia){
 
-/*
+
     int dx[] = {-1,0,1,0}; // 4 directions
    int dy[] = {0,1,0,-1};
 
-  */
+ /*
     int dx[] = {-1, 0, 1, -1, 1, -1, 0, 1};    // 8 directions
     int dy[] = {-1, -1, -1, 0, 0, 1, 1, 1};
-
+    */
     int num_directions = sizeof(dx) / sizeof(dx[0]);
 
     vector<Node*> open_set;         //nodi in analisi
@@ -52,7 +51,7 @@ vector<Node*> a_star(Node* start,Node* goal, Grid& griglia){
             Node* node = current;
             while (node != nullptr) {
                 path.push_back(node);
-                node->getShape().setFillColor(sf::Color::Green);
+                //node->getShape().setFillColor(sf::Color::Green);
 
                 node = node->parent;
             }
@@ -114,18 +113,25 @@ vector<Node*> a_star(Node* start,Node* goal, Grid& griglia){
 
 int main() {
 
+    //inizializzazione finestra
     Vector2i resolution = Vector2i(1200,600);
     RenderWindow window(VideoMode(resolution.x,resolution.y),"A* algorithm!");
     window.setFramerateLimit(60);
     Grid griglia =  Grid(resolution);
+
+    // nodo iniziale
     Node* start = griglia.getNodeByPos({0,5});
     start->is_start();
+
+    // nodo finale
     Node* goal = griglia.getNodeByPos({15,10});
     goal->is_goal();
 
-
+    //inizializzazione percorso
     vector<Node*> path ={};
     bool flag   = false ;
+
+    //window loop
     while (window.isOpen()) {
         Event event;
 
@@ -134,17 +140,29 @@ int main() {
                 window.close();
             }
         }
-        if(Mouse::isButtonPressed(Mouse::Left) ){
+
+        //settaggio degli ostacoli a finestra aperta premendo sulle singole celle
+        if(Mouse::isButtonPressed(Mouse::Left)){
+
+
             Vector2i pos = Mouse::getPosition(window)/30;
-            Node* m = griglia.getNodeByPos(pos);
-            if(!m->is_obstacle()){
-                m->make_obstacle(true);
-                m->setColor(sf::Color::Red);
+            if(pos.x != 0 && pos.y != 0){
+                Node* m = griglia.getNodeByPos(pos);
+                while(m != nullptr){
+                    if(!m->is_obstacle()){
+                        m->make_obstacle(true);
+                        //m->setColor(sf::Color::Red);
+                    };
+                    sf::sleep(sf::milliseconds(20));
+                    m = nullptr;
+                }
+
+            }
 
 
-            };
-            sf::sleep(sf::milliseconds(300));
         };
+
+        //con "Spazio" l'algoritmo A-star inizia e viene evidenziato il percorso trovato
         if (Keyboard::isKeyPressed(Keyboard::Space)) {
             path = a_star(start, goal,griglia);
 
@@ -167,9 +185,19 @@ int main() {
 
         }
 
-        /*if(Keyboard::isKeyPressed(Keyboard::C)){
-            path = {};
-        };*/
+
+        //Premendo "c" il percorso viene eliminato
+        if(Keyboard::isKeyPressed(Keyboard::C)){
+            if(flag){
+                griglia.clearPath(path);
+                path = {};
+                flag = false;
+            }
+        };
+
+        if(Keyboard::isKeyPressed(Keyboard::X)){
+            griglia.clearObstacles();
+        }
 
         window.clear(Color::Black);
 
@@ -179,6 +207,7 @@ int main() {
 
 
     };
+
 
 
     return 0;
