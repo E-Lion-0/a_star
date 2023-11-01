@@ -4,20 +4,7 @@
 
 #ifndef A_STAR_NODE_H
 #define A_STAR_NODE_H
-#include "Cell.h"
-
-/*Pseudo-code:
- *
- * f(current.node) = h(current.node) + g(current.node)
- * f() := costo totale del nodo
- * h() := funzione di stima(euristica) del nodo ->pitagora
- * g() := distanza corrente-inizio del nodo
- *5
- * 1) l algoritmo privilegia nodi con f() minore
- * 2) vengono esaminati gli 8 possibili nodi adiacenti
- * 3) iterazione
- */
-
+#include <SFML/Graphics.hpp>
 
 class Node {
 
@@ -25,78 +12,105 @@ private:
     bool obstacle = false;
     sf::Color color;
     sf::RectangleShape shape;
-
-public:
     int x, y; //posizione
 
+    ///values
+    int step;  //costo del passo
+    int heuristic;   // stima del costo rimanente
+    int cost;    // f = g + h
     Node* parent; // riferimento al nodo padre
 
-    ///values
-    int g;  //costo del passo
-    int h;   // stima del costo rimanente
-    int f;    // f = g + h
-    Node(int x_, int y_) : x(x_), y(y_), g(0), h(0), f(0) ,parent(nullptr){
+public:
+
+    Node(int x_, int y_) : x(x_), y(y_), step(0), heuristic(0), cost(0) ,parent(nullptr){
         shape.setSize({25,25});
-        color = sf::Color::Blue;
+        color = sf::Color (0,0,200);
         shape.setFillColor(color);
         shape.setOutlineThickness(5);
         shape.setOutlineColor(sf::Color::Black);
         shape.setPosition(x*30,y*30);
     };
-    Node(int x_, int y_,int g_, int h_, int f_,Node* parent_) : x(x_), y(y_), g(g_), h(h_), f(f_) ,parent(parent_){};
 
-    bool operator==(const Node& other) const{
-        bool op = false;
-        if(this->shape.getPosition() == other.shape.getPosition()){
-            op = true;
-        }
-        return op;
-    };
+    Node(int x_, int y_,int step_, int heuristic_, int cost_,Node* parent_) : x(x_), y(y_), step(step_), heuristic(heuristic_), cost(cost_) ,parent(parent_){};
 
+    /// metodi costanti
 
-    bool operator<(const Node& other) const {
-        //todo
-        return f < other.f;
-    }
-    sf::RectangleShape getShape(){
+    //Getters's
+
+    const sf::RectangleShape getShape(){
         return shape;
     }
-    void is_start(){
+
+    const sf::Vector2i getPos(){     //const
+        sf::Vector2i r = {x,y};
+        return r;
+    };
+
+    const int get_step(){
+        return step;
+    }
+
+    const int get_heuristic(){
+        return heuristic;
+    }
+
+    const int get_cost(){
+        return cost;
+    }
+
+    Node* get_parent(){
+        return parent;
+    }
+
+    const bool is_obstacle(){
+        return obstacle;
+    };
+
+    //Setter's
+
+    void set_heuristic(int h){
+        heuristic = h;
+    }
+
+    void set_step(int g){
+        step = g;
+    }
+
+    void set_cost(int f){
+        cost = f;
+    }
+
+    void set_start(){
         if(!obstacle){
-            shape.setFillColor(sf::Color::Green);
+            shape.setFillColor(sf::Color (0,255,0));
         };
     };
 
-    void is_goal(){
+    void set_goal(){
         if(!obstacle){
             shape.setFillColor((sf::Color::White));
         };
     };
-    void is_path(){
+
+    void set_path(){
         if(!obstacle){
-            shape.setFillColor(sf::Color::Yellow);
+            shape.setFillColor(sf::Color (0,190,0));
         };
     };
+
     void setColor(sf::Color c){
         shape.setFillColor(c);
     };
-    sf::Vector2i getPos(){
-        sf::Vector2i r = {x,y};
-        return r;
-    };
-    bool is_obstacle(){
-        return obstacle;
-    };
+
     void make_obstacle(bool f){
         if(f){
-            this->setColor(sf::Color::Green);
+            this->setColor(sf::Color (0,0,0));
         }else{
-            this->setColor(sf::Color::Blue);
+            this->setColor(sf::Color (0,0,200));
         }
         this->obstacle = f;
 
     }
-
 
 };
 

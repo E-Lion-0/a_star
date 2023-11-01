@@ -7,7 +7,7 @@ FetchContent_Declare(SFML
         GIT_TAG 2.6.x)
 FetchContent_MakeAvailable(SFML)
 
-add_executable(a_star main.cpp Node.h  Grid.cpp Node.cpp Grid.h Grid.h )
+add_executable(a_star main_with_obstacles.cpp Node.h  Grid.cpp Grid.h Grid.h A-star.h )
 target_link_libraries(a_star PRIVATE sfml-graphics)
 target_compile_features(a_star PRIVATE cxx_std_17)
 if (WIN32 AND BUILD_SHARED_LIBS)
