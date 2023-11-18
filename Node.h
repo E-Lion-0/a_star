@@ -22,7 +22,7 @@ private:
 
 public:
 
-    Node(int x_, int y_) : x(x_), y(y_), step(0), heuristic(0), cost(0) ,parent(nullptr){
+    Node(int x, int y) : x(x), y(y), step(0), heuristic(0), cost(0) ,parent(nullptr){
         shape.setSize({25,25});
         color = sf::Color (0,0,200);
         shape.setFillColor(color);
@@ -31,7 +31,7 @@ public:
         shape.setPosition(x*30,y*30);
     };
 
-    Node(int x_, int y_,int step_, int heuristic_, int cost_,Node* parent_) : x(x_), y(y_), step(step_), heuristic(heuristic_), cost(cost_) ,parent(parent_){};
+    Node(int x, int y,int step, int heuristic, int cost,Node* parent) : x(x), y(y), step(step), heuristic(heuristic), cost(cost) ,parent(parent){};
 
     /// metodi costanti
 

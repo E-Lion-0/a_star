@@ -25,6 +25,8 @@ public:
 
     Grid(Vector2i _dim);
 
+    Grid(int x, int y) : Grid(Vector2i({x,y})){};
+
     const int getHeight() const{        //get in inglese
         return dim.y;
     };
