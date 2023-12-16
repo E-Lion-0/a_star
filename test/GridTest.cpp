@@ -33,7 +33,9 @@ TEST(GridSuite, TestMapWithoutObsactles){
     vector<Node*> path  = a_star(start, goal,g);
     ASSERT_NE(start, nullptr);
     ASSERT_NE(goal, nullptr);
-    EXPECT_FALSE(path.empty());
+    for(int i = 0; i>path.size()-1;i++){
+        EXPECT_EQ(path.at(i)->get_parent(),path.at(i+1));
+    }
     std::cout<<"Grid without obstacles: PATH FOUND!"<<std::endl;
 };
 
@@ -61,8 +63,10 @@ TEST(GridSuite, TestMapWithObsactles){
         Node* ob = g.getNodeByPos(m);
         ob->make_obstacle(true);
     }
-    vector<Node*> path  = a_star(start, goal,g);
-    EXPECT_FALSE(path.empty());
+    vector<Node*> path  = a_star(start,goal,g);
+    for(int i = 0; i>path.size()-1;i++){
+        EXPECT_EQ(path.at(i)->get_parent(),path.at(i+1));
+    }
     std::cout<<"Grid with obstacles: PATH FOUND!"<<std::endl;
 };
 
