@@ -57,8 +57,6 @@ vector<Node*> a_star(Node* start,Node* goal, Grid& grid){
             Node* node = current;
             while (node != nullptr) {
                 path.push_back(node);
-                //node->getShape().setFillColor(sf::Color::Green);
-
                 node = node->get_parent();
             }
             return path;

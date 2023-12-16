@@ -11,7 +11,6 @@
 using namespace sf;
 using namespace std;
 
-/// codice unit testing : piccole mappe senza ostacoli e poi con, soluzione impossibile , sistemare i nomi
 int main() {
 
     //inizializzazione finestra
@@ -103,6 +102,7 @@ int main() {
         window.display();
 
     };
+
     return 0;
 };
 
